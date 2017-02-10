@@ -1,0 +1,640 @@
+[
+    {
+        "id": "c5798d55.40967",
+        "type": "tab",
+        "label": "VisualTJ"
+    },
+    {
+        "id": "25732a29.bf0476",
+        "type": "http response",
+        "z": "c5798d55.40967",
+        "name": "",
+        "x": 653.8125,
+        "y": 115.81875610351562,
+        "wires": []
+    },
+    {
+        "id": "170ec231.86e95e",
+        "type": "http in",
+        "z": "c5798d55.40967",
+        "name": "",
+        "url": "/tjvisual",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 170.06250762939453,
+        "y": 115.56875419616699,
+        "wires": [
+            [
+                "b2dfd099.eb8c3"
+            ]
+        ]
+    },
+    {
+        "id": "46194932.14f958",
+        "type": "exec",
+        "z": "c5798d55.40967",
+        "command": "raspistill -o /home/pi/tmp/image.jpg -w 640 -h 480",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "name": "Take a picture",
+        "x": 644.5001525878906,
+        "y": 439.75011444091797,
+        "wires": [
+            [
+                "4220f7aa.956748",
+                "ebf7b7b9.a3e988"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "65e0c1b4.9478f",
+        "type": "websocket in",
+        "z": "c5798d55.40967",
+        "name": "",
+        "server": "9f7fb00.831295",
+        "client": "",
+        "x": 180.50003051757812,
+        "y": 449.99999237060547,
+        "wires": [
+            [
+                "f7c69a80.245c28",
+                "56413a34.72e814"
+            ]
+        ]
+    },
+    {
+        "id": "b165b4d8.d4c5a8",
+        "type": "visual-recognition-v3",
+        "z": "c5798d55.40967",
+        "name": "IBM Watson - Visual Recognition",
+        "apikey": "",
+        "image-feature": "classifyImage",
+        "lang": "en",
+        "x": 1011.9002075195312,
+        "y": 764.0001525878906,
+        "wires": [
+            [
+                "bc028ed6.71f1d",
+                "a8c215b3.94d898"
+            ]
+        ]
+    },
+    {
+        "id": "bc028ed6.71f1d",
+        "type": "debug",
+        "z": "c5798d55.40967",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "result",
+        "x": 1242.1501770019531,
+        "y": 686.3500595092773,
+        "wires": []
+    },
+    {
+        "id": "892120fd.d7887",
+        "type": "file in",
+        "z": "c5798d55.40967",
+        "name": "",
+        "filename": "/home/pi/tmp/image.jpg",
+        "format": "",
+        "x": 728.9001159667969,
+        "y": 768.2625470161438,
+        "wires": [
+            [
+                "b165b4d8.d4c5a8"
+            ]
+        ]
+    },
+    {
+        "id": "a8c215b3.94d898",
+        "type": "function",
+        "z": "c5798d55.40967",
+        "name": "select classification",
+        "func": "if (msg.result.images[0].classifiers[0].classes.length!==0) {\n    msg.indicator=0;\n    msg.class=msg.result.images[0].classifiers[0].classes[0].class;\n    msg.score=msg.result.images[0].classifiers[0].classes[0].score;\n}\nelse {\n    msg.indicator=1;\n}\nreturn msg;\n",
+        "outputs": "1",
+        "noerr": 0,
+        "x": 1262.2065734863281,
+        "y": 831.6875839233398,
+        "wires": [
+            [
+                "57fba3e.015f15c",
+                "be6cef3b.bdc5",
+                "50411ae5.51e394"
+            ]
+        ]
+    },
+    {
+        "id": "57fba3e.015f15c",
+        "type": "debug",
+        "z": "c5798d55.40967",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "class",
+        "x": 1491.9064636230469,
+        "y": 716.1000061035156,
+        "wires": []
+    },
+    {
+        "id": "be6cef3b.bdc5",
+        "type": "debug",
+        "z": "c5798d55.40967",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "score",
+        "x": 1493.2065124511719,
+        "y": 776.6875915527344,
+        "wires": []
+    },
+    {
+        "id": "f7c69a80.245c28",
+        "type": "switch",
+        "z": "c5798d55.40967",
+        "name": "Take or analyze picture",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "take picture",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "analyze picture",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 415.41668701171875,
+        "y": 556.7667465209961,
+        "wires": [
+            [
+                "46194932.14f958"
+            ],
+            [
+                "892120fd.d7887"
+            ]
+        ]
+    },
+    {
+        "id": "56413a34.72e814",
+        "type": "debug",
+        "z": "c5798d55.40967",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 461.6666564941406,
+        "y": 346.0666732788086,
+        "wires": []
+    },
+    {
+        "id": "c661dd5.d28c82",
+        "type": "template",
+        "z": "c5798d55.40967",
+        "name": "Simpel result Table",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<style>\nh4 {\n    text-align: center;\n    margin: 10px;\n}\ntable {\n    width: 20%;\n    margin-left: 40%;\n    margin-right: 40%;\n}\n\nth, td {\n    padding: 8px;\n    text-align: center;\n    border-bottom: 1px solid #ddd;\n}\n</style>\n\n\n<h4>This match was found:</h4> \n<div>\n    <table>\n        <tr>\n            <th>Class</th>\n            <th>Score</th>\n        </tr>\n        <tr>\n            <td>{{class}}</td>\n            <td>{{score}}</td>\n        </tr>\n    </table>\n</div>",
+        "x": 1730.6665649414062,
+        "y": 856.2000045776367,
+        "wires": [
+            [
+                "e2bd719f.de55b",
+                "3ede88bb.57e7a8",
+                "a70780d8.5c438"
+            ]
+        ]
+    },
+    {
+        "id": "e2bd719f.de55b",
+        "type": "websocket out",
+        "z": "c5798d55.40967",
+        "name": "",
+        "server": "9f7fb00.831295",
+        "client": "",
+        "x": 2003.7997436523438,
+        "y": 751.933349609375,
+        "wires": []
+    },
+    {
+        "id": "4220f7aa.956748",
+        "type": "debug",
+        "z": "c5798d55.40967",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 828.9584045410156,
+        "y": 304.33333587646484,
+        "wires": []
+    },
+    {
+        "id": "337a0454.19595c",
+        "type": "file in",
+        "z": "c5798d55.40967",
+        "name": "",
+        "filename": "/home/pi/tmp/image.jpg",
+        "format": "",
+        "x": 454.2401123046875,
+        "y": 1445.460693359375,
+        "wires": [
+            [
+                "8468cd18.8795a",
+                "f33920a6.4ff99"
+            ]
+        ]
+    },
+    {
+        "id": "8468cd18.8795a",
+        "type": "function",
+        "z": "c5798d55.40967",
+        "name": "Set Content-Type header",
+        "func": "msg.headers = {\n    \"Content-Type\":\"image/jpeg\"\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 730.2500915527344,
+        "y": 1549.916748046875,
+        "wires": [
+            [
+                "7bdd7fa6.99329"
+            ]
+        ]
+    },
+    {
+        "id": "7bdd7fa6.99329",
+        "type": "http response",
+        "z": "c5798d55.40967",
+        "name": "",
+        "x": 947.5830993652344,
+        "y": 1549.583740234375,
+        "wires": []
+    },
+    {
+        "id": "98a6213d.6bdd9",
+        "type": "http in",
+        "z": "c5798d55.40967",
+        "name": "",
+        "url": "/getimage",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 199.25010681152344,
+        "y": 1447.916748046875,
+        "wires": [
+            [
+                "337a0454.19595c"
+            ]
+        ]
+    },
+    {
+        "id": "f33920a6.4ff99",
+        "type": "debug",
+        "z": "c5798d55.40967",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "payload",
+        "x": 799.2501678466797,
+        "y": 1415.9167098999023,
+        "wires": []
+    },
+    {
+        "id": "3ede88bb.57e7a8",
+        "type": "debug",
+        "z": "c5798d55.40967",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 1941.2082824707031,
+        "y": 600.3333358764648,
+        "wires": []
+    },
+    {
+        "id": "ebf7b7b9.a3e988",
+        "type": "template",
+        "z": "c5798d55.40967",
+        "name": "Picture status",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<p>I've taken this picture. Now you can analyze it!</p>\n",
+        "x": 903.6666564941406,
+        "y": 427.4166488647461,
+        "wires": [
+            [
+                "1118453c.0be9eb"
+            ]
+        ]
+    },
+    {
+        "id": "1118453c.0be9eb",
+        "type": "websocket out",
+        "z": "c5798d55.40967",
+        "name": "",
+        "server": "9f7fb00.831295",
+        "client": "",
+        "x": 1174.6666564941406,
+        "y": 425.9166488647461,
+        "wires": []
+    },
+    {
+        "id": "67a0c075.fa553",
+        "type": "comment",
+        "z": "c5798d55.40967",
+        "name": "Get Image",
+        "info": "",
+        "x": 179.16673278808594,
+        "y": 1400.6667048136392,
+        "wires": []
+    },
+    {
+        "id": "1e437fd2.e077",
+        "type": "comment",
+        "z": "c5798d55.40967",
+        "name": "WebApp",
+        "info": "",
+        "x": 161.16665649414062,
+        "y": 64.33333587646484,
+        "wires": []
+    },
+    {
+        "id": "fd86c078.e634d",
+        "type": "comment",
+        "z": "c5798d55.40967",
+        "name": "Take or analyze picture",
+        "info": "",
+        "x": 196.16665649414062,
+        "y": 403.3333511352539,
+        "wires": []
+    },
+    {
+        "id": "630478f5.ffcb48",
+        "type": "function",
+        "z": "c5798d55.40967",
+        "name": "Convert class to payload",
+        "func": "msg.payload=\"This is a \"+msg.class;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 295.33343505859375,
+        "y": 1012.827392578125,
+        "wires": [
+            [
+                "b2d8e4e3.089b48"
+            ]
+        ]
+    },
+    {
+        "id": "b2d8e4e3.089b48",
+        "type": "watson-text-to-speech",
+        "z": "c5798d55.40967",
+        "name": "IBM Watson - Text to Speech",
+        "lang": "en-US",
+        "langhidden": "en-US",
+        "voice": "en-US_MichaelVoice",
+        "voicehidden": "de-DE_DieterVoice",
+        "format": "audio/wav",
+        "password": "swobfeLyvq7C",
+        "x": 593.3460388183594,
+        "y": 1013.02734375,
+        "wires": [
+            [
+                "377dbb89.dc8cd4",
+                "fc417eba.aef8a"
+            ]
+        ]
+    },
+    {
+        "id": "2b9d113b.04309e",
+        "type": "file",
+        "z": "c5798d55.40967",
+        "name": "",
+        "filename": "/home/pi/tmp/speech.wav",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "x": 1146.6461486816406,
+        "y": 1112.9461669921875,
+        "wires": []
+    },
+    {
+        "id": "73fc7bfd.8933c4",
+        "type": "delay",
+        "z": "c5798d55.40967",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 915.6461486816406,
+        "y": 1213.9461669921875,
+        "wires": [
+            [
+                "614bc7f6.a16528"
+            ]
+        ]
+    },
+    {
+        "id": "614bc7f6.a16528",
+        "type": "file in",
+        "z": "c5798d55.40967",
+        "name": "",
+        "filename": "/home/pi/tmp/speech.wav",
+        "format": "",
+        "x": 1151.6461486816406,
+        "y": 1213.9461669921875,
+        "wires": [
+            [
+                "5c6ff52c.7bb39c"
+            ]
+        ]
+    },
+    {
+        "id": "5c6ff52c.7bb39c",
+        "type": "exec",
+        "z": "c5798d55.40967",
+        "command": "aplay /home/pi/tmp/speech.wav",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "name": "",
+        "x": 1466.6461486816406,
+        "y": 1212.4462890625,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "377dbb89.dc8cd4",
+        "type": "debug",
+        "z": "c5798d55.40967",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "payload",
+        "x": 984.6461334228516,
+        "y": 1011.9461669921875,
+        "wires": []
+    },
+    {
+        "id": "fc417eba.aef8a",
+        "type": "function",
+        "z": "c5798d55.40967",
+        "name": "Set playload to msg.speech",
+        "func": "msg.payload=msg.speech;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 836.6461486816406,
+        "y": 1115.9461669921875,
+        "wires": [
+            [
+                "2b9d113b.04309e",
+                "73fc7bfd.8933c4"
+            ]
+        ]
+    },
+    {
+        "id": "50411ae5.51e394",
+        "type": "switch",
+        "z": "c5798d55.40967",
+        "name": "",
+        "property": "indicator",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 1437.4331665039062,
+        "y": 904.7333984375,
+        "wires": [
+            [
+                "c661dd5.d28c82"
+            ],
+            [
+                "fa4054af.1f8948"
+            ]
+        ]
+    },
+    {
+        "id": "fa4054af.1f8948",
+        "type": "template",
+        "z": "c5798d55.40967",
+        "name": "No result found",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<p>I don't know what this is!</p>",
+        "x": 1721.3666381835938,
+        "y": 950.86669921875,
+        "wires": [
+            [
+                "b7edec25.06d83"
+            ]
+        ]
+    },
+    {
+        "id": "b7edec25.06d83",
+        "type": "websocket out",
+        "z": "c5798d55.40967",
+        "name": "",
+        "server": "9f7fb00.831295",
+        "client": "",
+        "x": 1964.13330078125,
+        "y": 960.933349609375,
+        "wires": []
+    },
+    {
+        "id": "a70780d8.5c438",
+        "type": "link out",
+        "z": "c5798d55.40967",
+        "name": "Result table out",
+        "links": [
+            "e9bdcab3.e874d8"
+        ],
+        "x": 1933.3666381835938,
+        "y": 867.6666259765625,
+        "wires": []
+    },
+    {
+        "id": "e9bdcab3.e874d8",
+        "type": "link in",
+        "z": "c5798d55.40967",
+        "name": "Text to speech in",
+        "links": [
+            "a70780d8.5c438"
+        ],
+        "x": 115.16665649414062,
+        "y": 1010.3333129882812,
+        "wires": [
+            [
+                "630478f5.ffcb48"
+            ]
+        ]
+    },
+    {
+        "id": "b2dfd099.eb8c3",
+        "type": "template",
+        "z": "c5798d55.40967",
+        "name": "WebApp",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE HTML>\n<html>\n    <head>\n    <title>Visual TJBot</title>\n    <script type=\"text/javascript\">\n        var ws;\n        var wsUri = \"ws:\";\n        var loc = window.location;\n        console.log(loc);\n        if (loc.protocol === \"https:\") { wsUri = \"wss:\"; }\n        // This needs to point to the web socket in the Node-RED flow\n        // ... in this case it's ws/simple\n        wsUri += \"//\" + loc.host + loc.pathname.replace(\"tjvisual\",\"ws/tjvisual\");\n\n        function wsConnect() {\n            console.log(\"connect\",wsUri);\n            ws = new WebSocket(wsUri);\n            var line = \"\";    // either uncomment this for a building list of messages\n            ws.onmessage = function(msg) {\n                var image = \"<img src='http://localhost:1880/getimage?\"+ new Date().getTime() + \"' alt='Picture' width='480px'/>\";\n                console.log(image);\n                document.getElementById('displayimage').innerHTML = image;\n                // data from the http response from the visrec flow on bluemix\n                var data = msg.data;\n                console.log(data); //log output from visual rec analyzation\n                line = data\n                document.getElementById('messages').innerHTML = line;\n\n                \n            }\n            ws.onopen = function() {\n                // update the status div with the connection status\n                document.getElementById('status').innerHTML = \"Websocket is connected and the app is ready to use.\";\n                //ws.send(\"Open for data\");\n                console.log(\"connected\");\n            }\n            ws.onclose = function() {\n                // update the status div with the connection status\n                document.getElementById('status').innerHTML = \"Websocket is not connected. Reconnecting in progress.\";\n                // in case of lost connection tries to reconnect every 3 secs\n                setTimeout(wsConnect,3000);\n            }\n        }\n        \n        function takepic(m) {\n            if (ws) { ws.send(m); }\n            console.log(\"taking picture\");\n        }\n        \n        function analyze(m)  {\n            if (ws) { ws.send(m); }\n            console.log(\"analyzing picture\");\n        }\n    </script>\n    \n    <style>\n        body{\n            padding-top: 45px;\n            background: rgb(245,247,250);\n            font-family:helvetica;\n            font-size: 16px;\n        }\n        \n        div {\n            margin-top: 10px;\n        }\n        \n        p {\n            text-align: center;\n            margin: 0;\n            font-size: 16px;\n        }\n        \n        hr {\n            margin-top: 20px;\n            margin-bottom: 20px;\n        }\n        \n       #header {\n            position: absolute;\n            margin: 0;\n            top: 0;\n            left: 0;\n            width: 100%;\n            height: 50px;\n            background: rgb(59,75,84);\n            box-sizing: border-box;\n            color: #C7C7C7;\n            font-size: 25px;\n            text-align: center;\n            vertical-align: middle;\n            line-height: 50px;\n        }\n        \n        #divbutton{\n            margin: 0px;\n            display:inline-block;\n            \n        }\n        \n        img {\n            display: block;\n            margin: auto;\n            padding: 0px;\n        }\n       \n        h1 {\n            text-align: center;\n        }\n\n        button{\n            padding:16px 20px;\n            margin: auto;\n            width: 200px;\n            font-weight:100;\n            color:#fff;\n            font-size: 18px;\n            background: rgb(0,177,152);\n            border:0;\n        }\n        button:hover{\n            background: rgb(0,102,87);\n        }\n        \n        #status{\n          font-size: 10px;\n          position: relative;\n          bottom: 0;\n          text-align: center;\n        }\n        \n    </style>\n    \n    </head>\n    <body onload=\"wsConnect();\" onunload=\"ws.disconnect();\">\n        <div id=\"header\">Visual TJBot</div>\n        <div><img src='https://ibmtjbot.github.io/images/newTJBoticon.png' width='75px'/></div>\n        <div>\n            <p>Hi my name is TJBot! I'm an open source project designed to help you access IBM Watson Services.</p>\n            <p>Now you can start taking a picture and analyze it with the Visual Recognition Service on IBM Bluemix.</p>\n        </div>\n        \n        <div style=\"text-align:center\">\n            <div id=\"divbutton\"><button type=\"button\" onclick='takepic(\"take picture\");'>Take a Picture</button></div>\n            <div id=\"divbutton\"><button type=\"button\" onclick='analyze(\"analyze picture\");'>Analyze it</button></div>\n        </div>\n        <div id=\"displayimage\"></div>\n        <div id=\"messages\"></div>\n        <hr>\n        <div id=\"status\">Websocket status unknown</div>\n    </body>\n</html>\n",
+        "x": 442.3125305175781,
+        "y": 116.31875610351562,
+        "wires": [
+            [
+                "25732a29.bf0476"
+            ]
+        ]
+    },
+    {
+        "id": "6aeb613d.d7d41",
+        "type": "comment",
+        "z": "c5798d55.40967",
+        "name": "Audio output result class with Text to Speech",
+        "info": "",
+        "x": 259.5,
+        "y": 946.2000122070312,
+        "wires": []
+    },
+    {
+        "id": "9f7fb00.831295",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/tjvisual",
+        "wholemsg": "false"
+    }
+]
