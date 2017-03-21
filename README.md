@@ -1,14 +1,14 @@
 # VisualTJ
-<img src="/images/tjbot.png" align="middle" width="50%">
+<img align="center" src="/images/tjbot.png" width="50%">
 
 > Make your robot see and recognize the world
 
 
 ## How it works
 - Takes a picture.
-- Sends the picture to the [Watson Visual Recognition](https://www.ibm.com/watson/developercloud/visual-recognition.html) Service.
+- Sends the picture to the [Watson Visual Recognition](https://www.ibm.com/watson/developercloud/visual-recognition.html) service.
 - Analyzes/classifies the picture and sends back possible classes.
-- Displays the results and also verbalizes this action as well using the [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html).
+- Displays the results and also verbalizes this action as well using the [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) service.
 
 
 ## Hardware Requirements and Setup
@@ -55,9 +55,9 @@ Clone or download the repository to get the sample flow:
 	git clone git@github.com:samuelvogelmann/visualtj.git
 	cd visualtj
 
-Copy the content of the [**flow.json**](https://github.com/samuelvogelmann/visualtj/blob/master/flow.json) file to clipboard. Go to http://localhost:1880 and import the flow using the import function. In the upper right corner click on the menu bar, then **Import Form** > **Clipboard** to import the flow.
+Copy the content of the [**flow.json**](https://github.com/samuelvogelmann/visualtj/blob/master/flow.json) file to clipboard. Go to http://localhost:1880 and import the flow using the import function. In the upper right corner click on the menu bar, then **Import Form** > **Clipboard** to import the flow:
 
-<img src="/images/import_node_red.png" align="middle" width="100%">
+<img align="center" src="/images/import_node_red.png" width="100%">
 
 Paste the sample flow into the **Paste nodes here** field and click **Import**.
 
@@ -73,7 +73,7 @@ At first you have to create a Visual Recognition instance on Bluemix: <https://c
 
 Then you need to update the Visual Recognition node <img src="/images/visrec_node.png"> within your flow with *your* Watson Visual Recognition credentials:
 
-<img src="/images/visrec_node_settings.png" align="middle" width="100%">
+<img align="center" src="/images/visrec_node_settings.png" width="50%">
 
 The last step is the Watson Text to Speech Service. You need to do the exact same thing you did with the Visual Recognition service. You may leave all the default values and select **create**. Copy your credentials and add them to **Text to Speech** node <img src="/images/t2s_node.png">.
 
@@ -82,6 +82,7 @@ The last step is the Watson Text to Speech Service. You need to do the exact sam
 Finally click the red **Deploy** button in the upper right corner to deploy your flow. Now you can access the application at
 http://localhost:1880/tjvisual and start taking a picture and analyze it with the IBM Watson Visual Recognition Service.
 
+<img align="center" src="/images/webapp.png" width="50%">
 
 ## Whats Next?
 There are a few things you can do and ways to take your robot forward:
