@@ -1,14 +1,14 @@
 # VisualTJ
 <img align="center" src="/images/tjbot.png" width="50%">
 
-> Make your robot see and recognize the world
+> A Node-RED based application to make your TJbot see and recognize the world.
 
 
 ## How it works
 - Takes a picture.
 - Sends the picture to the [Watson Visual Recognition](https://www.ibm.com/watson/developercloud/visual-recognition.html) service.
 - Analyzes/classifies the picture and sends back possible classes.
-- Displays the results and also verbalizes this action as well using the [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) service.
+- Displays the result and also verbalizes this action as well using the [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) service.
 
 
 ## Hardware Requirements and Setup
@@ -18,7 +18,7 @@
 - [Speaker with 3.5mm audio jack](https://www.amazon.com/gp/product/B014SOKX1E/ref=oh_aui_detailpage_o00_s00?ie=UTF8&psc=1)
 - [IBM TJBot](http://ibm.biz/mytjbot): You can 3D print or laser cut the robot
 
-> Follow the step-by-step instructions on [instructables](http://www.instructables.com/id/) to assemble and prepare your RaspberryPi/TJBot to run the code.
+> Follow the step-by-step instructions on [instructables](http://www.instructables.com/member/TJBot/) to assemble and prepare your RaspberryPi/TJBot to run the code.
 
 
 ## Build the Application
@@ -55,7 +55,7 @@ Clone or download the repository to get the sample flow:
 	git clone git@github.com:samuelvogelmann/visualtj.git
 	cd visualtj
 
-Copy the content of the [**flow.json**](https://github.com/samuelvogelmann/visualtj/blob/master/flow.json) file to clipboard. Go to http://localhost:1880 and import the flow using the import function. In the upper right corner click on the menu bar, then **Import Form** > **Clipboard** to import the flow:
+Copy the content of the [**flow.json**](https://github.com/samuelvogelmann/visualtj/blob/master/flow.json) file to clipboard. Go to http://localhost:1880 and import the flow using the import function. In the upper right corner click on the menu bar, then **Import** > **Clipboard** to import the flow:
 
 <img align="center" src="/images/import_node_red.png" width="100%">
 
@@ -69,13 +69,15 @@ In this step, you get API access to the Watson services used in this recipe:
 
 (If you don't have a Bluemix account, follow the [instructions](https://console.ng.bluemix.net/registration/?target=%2Fdashboard%2Fapps) to create a free trial account.)
 
-At first you have to create a Visual Recognition instance on Bluemix: <https://console.ng.bluemix.net/catalog/services/visualrecognition>. You can leave the default values and select **Create**. Now go to **Sevice Credentials** on the left menu and copy your **api_key** into clipboard.
+At first you have to create a Visual Recognition instance on Bluemix: <https://console.ng.bluemix.net/catalog/services/visualrecognition>. 
+
+You can leave the default values and select **Create**. Now go to **Sevice Credentials** on the left menu and copy your **api_key** into clipboard.
 
 Then you need to update the Visual Recognition node <img src="/images/visrec_node.png"> within your flow with *your* Watson Visual Recognition credentials:
 
 <img align="center" src="/images/visrec_node_settings.png" width="50%">
 
-The last step is the Watson Text to Speech Service. You need to do the exact same thing you did with the Visual Recognition service. You may leave all the default values and select **create**. Copy your credentials and add them to **Text to Speech** node <img src="/images/t2s_node.png">.
+The last step is the [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) service. You need to do the exact same thing you did with the Visual Recognition service. You may leave all the default values and select **create**. Copy your credentials and add them to **Text to Speech** node <img src="/images/t2s_node.png">.
 
 
 ## Run the Application
