@@ -1,5 +1,5 @@
 # VisualTJ
-<img src="/images/tjbot.png" width="100%">
+<img src="/images/tjbot.png" width="50%">
 
 > Make your robot see and recognize the world
 
@@ -73,7 +73,7 @@ At first you have to create a Visual Recognition instance on Bluemix: <https://c
 
 Then you need to update the Visual Recognition node <img src="/images/visrec_node.png"> within your flow with *your* visual recognition credentials:
 
-<img src="/images/visrec_node_settings.png" width="50%">
+<img src="/images/visrec_node_settings.png" align="center" width="100%">
 
 The last step is the Watson Text to Speech Service. You need to do the exact same thing you did with the visual recognition service. You may leave all the default values and select **create**. Copy your credentials and add them to **Text to Speech** node <img src="/images/t2s_node.png">.
 
