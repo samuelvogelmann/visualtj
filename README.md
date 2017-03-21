@@ -1,5 +1,5 @@
 # VisualTJ
-<img src="/images/visualtj.png" width="100%">
+<img src="/images/tjbot.png" width="100%">
 
 > Make your robot see and recognize the world
 
@@ -52,41 +52,49 @@ Clone or download the repository to get the sample flow.
 	git clone git@github.com:samuelvogelmann/visualtj.git
 	cd visualtj
 
-Copy the content of the 'flow.json' file to clipboard. Go to http://localhost:1880 and import the flow using the import function. In the upper right corner click on the menu bar, then 'Import Form' > 'Clipboard' to import the flow.
+Copy the content of the 'flow.json' file to clipboard. Go to http://localhost:1880 and import the flow using the import function. In the upper right corner click on the menu bar, then **Import Form** > **Clipboard** to import the flow.
 
-<img src="/images/flow-import.png" width="100%">
+<img src="/images/import_node_red.png" width="100%">
 
-Paste the sample flow into the "Paste nodes here" field and click 'Import'.
+Paste the sample flow into the **Paste nodes here** field and click **Import**.
 
 ### Update your Bluemix Credentials
-In this step, you get API access to the Watson services used in this recipe.
+In this step, you get API access to the Watson services used in this recipe:
 
-You need to update the Visual Recognition node within your flow with your Visual Recognition credentials.
+- Watson Visual Recognition Service
+- Watson Text to Speech Service
+
+(If you don't have a Bluemix account, follow the [instructions](https://console.ng.bluemix.net/registration/?target=%2Fdashboard%2Fapps) to create a free trial account.)
+
+At first you have to create a Visual Recognition instance on Bluemix: https://console.ng.bluemix.net/catalog/services/visualrecognition/. You can leave the default values and select **Create**. Now go to **Sevice Credentials** on the left menu and copy your **api_key** into clipboard.
+
+Then you need to update the Visual Recognition node <img src="/images/visrec_node.png"> within your flow with *your* visual recognition credentials:
+
+<img src="/images/visrec_node_settings.png" width="100">
+
+
+The last stop is the Watson Text to Speech. You need to do the exact same thing you did with the
+visual recognition service. You may leave all the default values and select **create***. Copy your credentials and add them to Text to Speech node <img src="/images/t2s_node.png">
 
 
 ## Run the Application
-
-Finally click the red 'Deploy' button in the upper right corner to deploy your flow. Now you can access the application at
-http://localhost:1880/tjvisual
+Finally click the red **Deploy** button in the upper right corner to deploy your flow. Now you can access the application at
+http://localhost:1880/tjvisual and start taking a picture and analyze it with the IBM Watson Visual Recognition Service.
 
 
 ## Whats Next?
-
-There are a few things you can do .. and ways to take your robot forward!
-- Train the Visual Recognition service to improve its classification capabilites. This tutorial and the documentation will help you creating you own custom classifier.
+There are a few things you can do and ways to take your robot forward:
+- Create a custom classifier and train the visual recognition service to improve its classification capabilites. This [tutorial](https://www.ibm.com/watson/developercloud/doc/visual-recognition/tutorial-custom-classifier.html) and the [documentation](https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/#classifiers) will help you creating your own custom classifier.
 
 
 ## Contributing and Issues
-
-To contribute, please feel free to fork the repo and send in a pull request.
-Also, if you find any issues (bugs, etc) or have questions, please feel free to open up a [github issue](https://github.com/victordibia/tjwave/issues/new).
+To contribute just fork the repository and send in a pull request. If you find any issues, feel free to open up a [github issue](https://github.com/samuelvogelmann/visualtj/issues/new).
 
 
 ## Dependencies List
-
 - Watson Developer Cloud: [Watson visual Recognition](https://www.ibm.com/watson/developercloud/visual-recognition.html) and [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html)
-- [Node-RED](http://nodered.org/)
-- [Node-Red nodes for Watson services](https://flows.nodered.org/node/node-red-node-watson)
+- [Node-RED](http://nodered.org/): Flow-based programming for the Internet of Things
+- [Node-Red nodes for Watson services](https://flows.nodered.org/node/node-red-node-watson): A collection of Node-RED nodes for IBM Watson services
 
 
 ## License
