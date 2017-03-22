@@ -8,7 +8,7 @@
 - Takes a picture.
 - Sends the picture to the [Watson Visual Recognition](https://www.ibm.com/watson/developercloud/visual-recognition.html) service.
 - Analyzes/classifies the picture and sends back possible classes.
-- Displays the result and also verbalizes this action as well using the [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) service.
+- Displays the result and verbalizes this action as well using the [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) service.
 
 
 ## Hardware Requirements and Setup
@@ -22,7 +22,6 @@
 
 
 ## Build the Application
-
 ### Install Node-RED
 At first check if Node-RED is already installed on your Pi. Since November 2015 release of Raspbian Jessie NodeREDcomes preinstalled on the os image. If not, open a terminal application on the Pi and execute the following commands to install the latest version of NodeRED and npm (Node Package Manager):
 
@@ -77,7 +76,7 @@ Then you need to update the Visual Recognition node <img src="/images/visrec_nod
 
 <img align="center" src="/images/visrec_node_settings.png" width="50%">
 
-The last step is the [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) service. You need to do the exact same thing you did with the Visual Recognition service. You may leave all the default values and select **create**. Copy your credentials and add them to **Text to Speech** node <img src="/images/t2s_node.png">.
+The last step is the [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) service. You need to do the exact same thing you did with the Visual Recognition service. You may leave all the default values and select **Create**. Copy your credentials and add them to **Text to Speech** node <img src="/images/t2s_node.png">.
 
 
 ## Run the Application
