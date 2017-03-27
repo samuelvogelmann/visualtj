@@ -81,9 +81,9 @@ The last step is the [Watson Text to Speech](https://www.ibm.com/watson/develope
 
 ## Run the Application
 Finally click the red **Deploy** button in the upper right corner to deploy your flow. Now you can access the application at
-http://localhost:1880/tjvisual and start taking a picture and analyze it with the IBM Watson Visual Recognition Service.
+http://localhost:1880/visualtj and start taking a picture and analyze it with the IBM Watson Visual Recognition Service.
 
-<img align="center" src="/images/webapp.png" width="50%">
+<img align="center" src="/images/webapp_new.png" width="50%">
 
 ## Whats Next?
 There are a few things you can do and ways to take your robot forward:
