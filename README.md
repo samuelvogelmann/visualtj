@@ -1,5 +1,5 @@
 # VisualTJ
-<img align="center" src="/images/tjbot.png" width="100%">
+<img align="center" src="/images/tjbot_nodered.png" width="100%">
 
 > A Node-RED based application to make your TJbot see and recognize the world.
 
