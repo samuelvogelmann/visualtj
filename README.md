@@ -23,12 +23,12 @@
 
 ## Build the Application
 ### Install Node-RED
-At first check if Node-RED is already installed on your Pi. Since November 2015 release of Raspbian Jessie NodeREDcomes preinstalled on the os image. If not, open a terminal application on the Pi and execute the following commands to install the latest version of NodeRED and npm (Node Package Manager):
+At first check if Node-RED is already installed on your Pi. Since November 2015 release of Raspbian Jessie NodeREDcomes preinstalled on the os image. If not, open a terminal application on the Pi and execute the following commands to install the latest version of Node-RED and npm (Node Package Manager):
 
-	sudo aptget update
-	sudo aptget distupgrade
-	curl sL https://deb.nodesource.com/setup_6.x | sudo -E -bash 
-	sudo aptget install -y nodejs
+	sudo apt-get update
+	sudo apt-get dist-upgrade
+	curl sL https://deb.nodesource.com/setup_6.x | sudo -E bash - 
+	sudo apt-get install -y nodejs
 	sudo npm install -g node-red
 
 You can troubleshoot [here](http://nodered.org/docs/getting-started/installation).
@@ -37,14 +37,14 @@ You can troubleshoot [here](http://nodered.org/docs/getting-started/installation
 Execute the following commands from a terminal to install the collection of Node-RED nodes for IBM Watson Services:
 	
 	cd ~/.nodered
-	npm install noderednodewatson
+	npm install node-red-node-watson
 	
 You will then need to restart Node-RED.
 
 ### Start and access Node-RED
 You have installed Node-RED as a global npm package, so you can execute the following commands from a terminal to start Node-RED:
 
-	nodered
+	node-red
 
 After Node-RED has started, you can access the browser-based flow editor at http://localhost:1880 with a browser on your Pi.
 
