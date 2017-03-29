@@ -33,13 +33,15 @@ At first check if Node-RED is already installed on your Pi. Since November 2015 
 
 You can troubleshoot [here](http://nodered.org/docs/getting-started/installation).
 
+To upgrade you're already installed version see: [Running on Raspberry Pi](http://nodered.org/docs/hardware/raspberrypi.html)
+
 ### Install IBM Watson Services Nodes
 Execute the following commands from a terminal to install the collection of Node-RED nodes for IBM Watson Services:
 	
 	cd ~/.nodered
 	npm install node-red-node-watson
 	
-You will then need to restart Node-RED.
+You will then need to restart Node-RED. To start Node-RED, run the command `node-red-start`. To stop Node-RED, run the command `node-red-stop`.
 
 ### Start and access Node-RED
 You have installed Node-RED as a global npm package, so you can execute the following commands from a terminal to start Node-RED:

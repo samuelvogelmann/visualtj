@@ -71,7 +71,7 @@
         "type": "visual-recognition-v3",
         "z": "30b44b2.a5c81b4",
         "name": "IBM Watson - Visual Recognition",
-        "apikey": "__PWRD__",
+        "apikey": "",
         "image-feature": "classifyImage",
         "lang": "en",
         "x": 927.4001770019531,
@@ -405,7 +405,7 @@
         "voice": "en-US_MichaelVoice",
         "voicehidden": "en-US_MichaelVoice",
         "format": "audio/wav",
-        "password": "swobfeLyvq7C",
+        "password": "",
         "x": 526.8460083007812,
         "y": 1090.2086181640625,
         "wires": [
